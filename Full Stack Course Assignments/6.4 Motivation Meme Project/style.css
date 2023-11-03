@@ -1,0 +1,54 @@
+/*  
+img {
+    /* display: block;
+    margin-left: auto;
+    margin-right: auto; 
+    border: solid whitesmoke;
+    border-width: 5px;
+  } */
+
+  /* html {
+    background-color: black;
+  } */
+
+  /* h1 {
+    font-family: 'Libre Baskerville', serif;
+    color: white;
+    text-align: center;
+  } */
+
+  /* .format{
+    width: 50%;
+    margin-left: 25%;
+  }  
+
+  p{
+    color: white;
+    text-align: center;
+  } */
+
+  /* The css code below is the way that the instructor did, notice the way she groups elements and applies the effects to them via a class*/
+  .poster {
+    /* the following 2 lines of css code center the image*/
+    width: 50%;
+    margin-left: 25%;
+    /* adds space on top to push the content a bit down*/
+    margin-top: 100px;
+    color: white;
+    font-family: "Libre Baskerville", serif;
+    text-align: center;
+  }
+
+  .motivation-img {
+    border: 5px solid white;
+    width: 100%;
+  }
+
+  body {
+    background-color: black;
+  }
+
+  h1 {
+    text-transform: uppercase;
+    font-size: 3rem;
+  }

@@ -1,0 +1,18 @@
+/* Write your code here: */
+
+/* .box p{
+    color: aqua;
+} */
+
+div p{
+    color: aqua;
+}
+
+li.done{
+    color: green;
+}
+
+/* this is the combining combiners method, in this ex we combine the ui element with the chaining method, allowing us to target the specific "other items" p tag/ element*/
+ul p.done{
+    font-size: .5rem;
+}

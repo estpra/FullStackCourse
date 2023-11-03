@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Flag Project</title>
+  <style>
+    .flag{
+      width: 900px;
+      height: 600px;
+      background-color: #CE1126;
+      position: absolute;
+      /* margin-left: auto;
+      margin-right: auto; */
+    }
+
+    .flag > p{
+      color: white;
+      text-align: center;
+      font-size: 90px;
+      position: relative;
+      bottom: 100px;
+    }
+
+    .flag > div{
+      background-color: #002868;
+      height: 300px;
+      /* margin-top: 50px; */
+      position: relative;
+      bottom: 125px;
+    }
+
+    .flag > div > div{
+      background-color: white;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      position: relative;
+      top: 50px;
+      margin-left: auto;
+      margin-right: auto;      
+    }
+
+    /* this selector(as far as I understand it) will only select a p tag that is the child of a div, that is the child of another div, which is the child of a class called flag */
+    .flag > div > div > p{
+      font-size: 80px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<!-- 
+  IMPORTANT! Do not change any HTML
+Don't add any classes/ids/elements 
+Use what you know about combining selectors 
+and CSS specificity instead.
+Hint 1: The flag is 900px by 600px and the circle is 200px by 200px.
+Hint 2: You can use CSS inspection to get the colors from
+https://appbrewery.github.io/flag-of-laos/
+-->
+
+<body>
+  <div class="flag">
+    <p>The Flag</p>
+    <div>
+      <div>
+        <p>of Laos</p>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

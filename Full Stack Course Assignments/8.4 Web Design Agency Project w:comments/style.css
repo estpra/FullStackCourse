@@ -1,0 +1,91 @@
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 50px 50px 0 50px;
+  background-color: #faf9f6;
+  display: flex;
+  flex-direction: column;
+  /* What this min-height and vh are doing is stating that the min-height of this element is at least 95% of the viewport height */
+  min-height: 95vh;
+}
+.main {
+  flex: 1;
+}
+
+h1 {
+  font-size: 5rem;
+}
+
+footer {
+  text-align: right;
+  color: midnightblue;
+}
+
+/* This is a class that I created when thinking about how to resize the text, but seems like with by using the float property, for both the div elements that use the right and left class respectively, the text is conformed to the available space left by the 2 dive elements being right next to eachother, without having to manually change the font-size */
+/* Also realized that when it comes to resizing text, you should use the font-size property cuz if you change it's width, that throws off the available space for that row and could cause alignment issues like how I was initially having when activating the media query that resizes and rearranges the elements to fit a smaller screen */
+/* .main > h1{
+  width: 800px;
+} */
+
+/* This class uses a float to position the images to the specified side of the screen, and also changing its height so the image and the text can fit in the same row, and also adds 50px of margin to add space between the image and text  */
+.tile-image{
+  height: 200px;
+  float: left;
+  margin-right: 50px;
+}
+
+.card {
+  width: 45%;
+}
+
+/* this float allows the image and the text(or any descedant) that is part of the div that uses the "left" class to break out of the normal html flow(moves the whole element to the left rather than one on top of the other like the default html flow; without it, you cant have the left and right on the same row like we did on this project) */
+.left {
+  float: left;
+}
+
+/* This float allows the div that uses the "right" class to break out of the default html flow and allow the "right" div elememnt to move to the same line as the "left" div element; without it, the "right" div would stay underneath the left div */
+.right {
+  float: right;
+}
+
+.highlight{
+  color: navy;
+}
+
+/* .card-text{
+  width: 250px;
+} */
+
+/* .right > p{
+  width: 250px;
+} */
+
+@media (max-width: 680px) {
+  .logo {
+    width: 100px;
+  }
+
+  h1 {
+    font-size: 3.5rem;
+    text-align: center;
+  }
+
+  .card {
+    /* This width ensures that the element that uses the card class takes up 100% of the width; without it, the 2 elements that use the card class stay next to eachother */
+    width: 100%;
+    /* Setting the display to block ensures that the elements stack on top of eachother */
+    display: block;
+    margin-bottom: 30px;
+    text-align: justify;
+  }
+
+  .card img {
+    margin-bottom: 10px;
+    width: 100%;
+    display: inline;
+    /* what this does is prevent the image from being distored when the display is resized due to the window being resized or using a device with a smaller display, and instead allows the image to retain its clarity by just zooming into the image a bit; turn this on and off to see the difference */
+    object-fit: cover;
+    /* These arent needed as the object-fit property was used to resize and repostion the images  */
+    /* margin-left: auto;
+    margin-right: auto; */
+  }
+}
