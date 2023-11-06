@@ -1,0 +1,52 @@
+body{
+    background-color: #011F3F;
+}
+
+h1{
+    font-family: 'Press Start 2P', serif;
+    font-size: 3rem;
+    color: #FEF2BF;
+    /* Added this text-align here for when the webpage is resized */
+    text-align: center;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.grid-container{
+    display: grid;
+    grid-template: auto auto / auto auto;
+    gap: 3rem;
+    margin-top: 5%;
+}
+
+.btn{
+    height: 200px;
+    width: 200px;
+    border: 10px solid black;
+    border-radius: 20%;
+}
+
+.pressed {
+    box-shadow: 0 3px 4px 0 #DBEDF3;
+    opacity: 0.5;
+  }
+
+.green{
+background-color: green;
+}
+
+.red{
+background-color: red;
+}
+
+.yellow{
+background-color: yellow;
+}
+
+.blue{
+background-color: blue;
+}
