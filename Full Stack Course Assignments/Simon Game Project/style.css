@@ -2,12 +2,20 @@ body{
     background-color: #011F3F;
 }
 
-h1{
+#level-title{
     font-family: 'Press Start 2P', serif;
     font-size: 3rem;
     color: #FEF2BF;
     /* Added this text-align here for when the webpage is resized */
     text-align: center;
+}
+
+#highscore{
+    font-family: 'Press Start 2P', serif;
+    font-size: 2rem;
+    color: #FEF2BF;
+    /* Added this text-align here for when the webpage is resized */
+    text-align:center;
 }
 
 .container{
