@@ -18,6 +18,10 @@ body{
     text-align:center;
 }
 
+.gameover{
+    background-color: red;
+}
+
 .container{
     display: flex;
     flex-direction: column;
@@ -39,22 +43,26 @@ body{
 }
 
 .pressed {
-    box-shadow: 0 3px 4px 0 #DBEDF3;
+    box-shadow: 0 3px 30px 0 #DBEDF3;
     opacity: 0.5;
   }
 
-.green{
+.pattern-animation{
+    visibility: hidden;
+}
+
+#green{
 background-color: green;
 }
 
-.red{
+#red{
 background-color: red;
 }
 
-.yellow{
+#yellow{
 background-color: yellow;
 }
 
-.blue{
+#blue{
 background-color: blue;
 }
