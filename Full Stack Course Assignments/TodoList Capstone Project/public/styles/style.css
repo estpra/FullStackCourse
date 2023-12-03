@@ -1,0 +1,42 @@
+
+strong{
+    /* font-family: MuseoModerno, sans-serif; */
+    font-size: large;
+    /* font-family: 'Courier New', Courier, monospace; */
+}
+
+.title-container{
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1{
+    font-family: MuseoModerno, sans-serif;
+    font-size: 5rem;
+}
+
+.slogan{
+    font-size: .8rem;
+    font-family: sans-serif;
+}
+
+/*This line takes away the border when viewing the page statically*/
+input{
+    border: none;
+  }
+/*This line takes away the border even when a user clicks on and types in the textbox*/
+  input:focus{
+    outline: none;
+  }
+
+  /* This line of code removes the light grey shadow in the textbox when in dark mode, I got the color of the backgrouind by inspecting the web page when it was in dark mode amd looking for the applied background color(tho it was named different since the css was provided in bootstrap and bootstrap uses sass files to generate the css files) */
+  .todo-item{
+    background-color: #212529;
+  }
+
+  #reminder{
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
