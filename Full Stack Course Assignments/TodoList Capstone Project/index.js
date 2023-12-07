@@ -11,6 +11,10 @@ app.get("/", (req, res)=> {
     res.render("index.ejs")
 })
 
+app.post("/submit", (req, res)=>{
+    console.log(req.body)
+})
+
 app.listen(port, (req, res)=> {
     console.log(`Listening on port ${port}`)
 })

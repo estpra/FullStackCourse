@@ -8,6 +8,7 @@ body{
     color: #FEF2BF;
     /* Added this text-align here for when the webpage is resized */
     text-align: center;
+    /* flex-shrink: 8; */
 }
 
 #highscore{
@@ -16,6 +17,7 @@ body{
     color: #FEF2BF;
     /* Added this text-align here for when the webpage is resized */
     text-align:center;
+    /* flex-shrink: 1; */
 }
 
 .gameover{

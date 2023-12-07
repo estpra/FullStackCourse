@@ -1,8 +1,5 @@
-
 strong{
-    /* font-family: MuseoModerno, sans-serif; */
     font-size: large;
-    /* font-family: 'Courier New', Courier, monospace; */
 }
 
 .title-container{
@@ -15,6 +12,7 @@ strong{
 h1{
     font-family: MuseoModerno, sans-serif;
     font-size: 5rem;
+    font-weight: bold;
 }
 
 .slogan{
@@ -36,7 +34,104 @@ input{
     background-color: #212529;
   }
 
-  #reminder{
+  /* #reminder{
     font-size: 1.2rem;
+    border: none; */
+    /* Leaving this styling on for now, matches the font of the title */
+    /* font-family: MuseoModerno, sans-serif;
+    font-weight: bold;
+  } */
+
+  textarea{
+    font-size: 1.2rem;
+    border: none;
+    /* Leaving this styling on for now, matches the font of the title */
+    font-family: MuseoModerno, sans-serif;
     font-weight: bold;
   }
+
+  textarea:focus{
+    outline: none;
+  }
+
+  /* Note that I applied this class to the span element, I applied it to the span element instead of putting the buttons in a div container becuase using the inspector, I realized that as the text box increased in size, so did the span container that the modify and delete buttons where already in and this worked perfectly so the buttons could resize along with the text box */
+  .button-container{
+    display: flex;
+    flex-direction: column;
+    /* width: 5.5rem; */
+    /* justify-content: space-between; */
+  }
+
+  /* Used flex-grow on the modify and delete buttons so they can fill in the space between them rather than use the justify-content property with the space-between value to keep both smaller versions of the buttons on both ends; I feel like the flex-grow version is better cuz it makes it easier for user to click on either modify or delete */
+  /* .btn{
+    flex-grow: 1;
+  } */
+
+  #completion-date{
+    border: none;
+    background-color: #212529;
+  }
+
+  .completion{
+    align-self:center;
+    background-color: #212529;
+  }
+
+#createNote{
+  display: flex;
+  flex-direction: column;
+  width: 4rem;
+  /* NOTE and Warning when you set a height value, it will stay at that value, this was causing bug where the button wasnt resizing with the text box */
+  /* height: 3rem; */
+  text-align: center;
+}
+
+.create-container{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#note{
+  /* This align-self breaks the width of the button */
+  /* align-self: center; */
+}
+
+  /* Didnt end up needing this media query to resize the todo items, it would actually make the width of the todo items a litte bigger than what the default behaviour would do */
+  /* @media (min-width: 605px) and (max-width: 645px) { 
+    label{
+      width: 36rem;
+    }
+  } */
+
+  /* The following media queries are custom media queries I came up with in order to give the website the responsive behavior I wanted it to have as the window is resized; What I learned from this is that Flexbox and grid dont necessarily gauranteee resizing responsiveness, they only gurantee layout integrity, you will have to create your own custom media queries to achieve responsiveness sometimes*/
+  /* The number ranges are also random, I used the ranges from the breakpoint values provided in boostrap as a reference but I came up with these custom ranges by trail and error */
+  /* I came up with the begnning and end values for the ranges based on what width size the content started getting covered up by the window being resized, once that happened, that width became my max width for that range, I shortened the width a little, and then kept resizing the window until it got covered again, guussed the size of the width and used that as the min value for that range, then I shortened the width a little again and repeated the process */
+@media (min-width: 569px) and (max-width: 604px) { 
+    label{
+      width: 34rem;
+    }
+  }
+
+  @media (max-width: 568px) { 
+    label{
+      /* Note that the last media query's width value is a bit more smaller than the others becuase since its the last one to be triggered by the width change due to the window being resized, it has to account for the smallest size the window can resize to width wise */
+      width: 30rem;
+    }
+
+    /* .textarea{
+      width: 20rem;
+    } */
+
+    /* .btn{
+      width: 25rem;
+    } */
+
+    .response{
+      width: 25rem;
+      /* width: 30rem; */
+    }
+  }
+
+
+ 
