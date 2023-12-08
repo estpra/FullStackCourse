@@ -1,8 +1,11 @@
 
 footer{
     width: 100%;
+    /* I made the height 100% so that once the user's todo list goes "under water" it can seem like the list is under water */
+    height: 100%;
     background-color: #3586ff;
   }
+
 
 /*wave and animation*/
 footer .wave {
