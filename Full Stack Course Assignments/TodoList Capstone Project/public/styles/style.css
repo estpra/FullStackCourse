@@ -72,6 +72,12 @@ input{
     background-color: #212529;
   }
 
+  /* Added this code here to allow the todo items to be on top of the waves animation using the z-index property, which will place content on top of other content if its z-index value is greater  */
+  label{
+    /* Made the value 2000 cuz the waves animation also uses the z-index property and their highest value was 1000(see waves.css) */
+    z-index: 2000;
+  }
+
   .completion{
     align-self:center;
     background-color: #212529;
@@ -92,10 +98,10 @@ input{
   gap: 10px;
 }
 
-#note{
+/* #note{ */
   /* This align-self breaks the width of the button */
   /* align-self: center; */
-}
+/* } */
 
   /* Didnt end up needing this media query to resize the todo items, it would actually make the width of the todo items a litte bigger than what the default behaviour would do */
   /* @media (min-width: 605px) and (max-width: 645px) { 
