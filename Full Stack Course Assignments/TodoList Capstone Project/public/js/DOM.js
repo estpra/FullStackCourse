@@ -31,10 +31,10 @@ $("#drk-mode-btn").on("click", () => {
 $("form[name=\"myForm\"]").on("submit", function (event) {
     //this line of code prevents the default behavior of a form which is to send a post request and allows the axios code to work properly; without this line, the console.logs on the browser dont pop up for some reason
     event.preventDefault()
-    //REMEMEBR, in order to view these console.logs, you must go to the console on the browser since this js file is used to manipilate the DOM which is bound to the browser; its why we use node.js to be able to use js outside of the browser and for the backend
-    console.log("Event handler works")
-    console.log(event.originalEvent.submitter.name)
-    console.log("id: " + this.elements.id.value)
+    //REMEMEBR, in order to view these console.logs, you must go to the console on the browser since this js file is used to manipilate the DOM which is bound to the browser; its why we use node.js to be able to use js outside of the browser and for the backend; all these console.logs were crucial for me to debug the bugs I was running into
+    // console.log("Event handler works")
+    // console.log(event.originalEvent.submitter.name)
+    // console.log("id: " + this.elements.id.value)
     console.log(event)
     if (event.originalEvent.submitter.name === "delete") {
         axios.delete(`/delete/${this.elements.id.value}`)

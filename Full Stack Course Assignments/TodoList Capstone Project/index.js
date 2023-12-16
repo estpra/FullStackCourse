@@ -54,8 +54,8 @@ app.delete("/delete/:id", (req, res)=>{
 })
 
 app.put("/modify/:id", (req, res)=>{
-    console.log(req.body)
-    console.log(req.params)
+    // console.log(req.body)
+    // console.log(req.params)
     const id = parseInt(req.params.id)
     let indexOfItemToUpdate = todoItems.findIndex(obj => obj.id === id)
     if(indexOfItemToUpdate !== -1)
