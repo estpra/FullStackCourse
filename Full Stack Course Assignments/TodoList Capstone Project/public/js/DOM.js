@@ -6,12 +6,14 @@
 // }
 
 $("#drk-mode-btn").on("click", () => {
-    // document.querySelector("html").toggleAttribute("data-bs-theme")
     if (document.querySelector("html").getAttribute("data-bs-theme") === "dark") {
+        //if you get here, the theme is currently dark, so remove the attributes that enable the dark theme to revert back to light theme
         document.querySelector("html").removeAttribute("data-bs-theme")
         //Added this line of code to be able to remove the light grey background that is left over after changing the theme to dark; since we start with the dark theme(I made this default by starting with the data-bs-theme attribute added to the html element) we remove the class that adds the background color that matched the dark mode background
         $("textarea").removeClass("todo-item")
+        //removes the light grey background using css class
         $("small>input").removeClass("completion")
+        $("#drk-mode-btn").attr("value", "Dark Mode")
     }
     else {
         //if you get here, the theme is light, not dark, so add the dark theme to the whole page
@@ -19,6 +21,7 @@ $("#drk-mode-btn").on("click", () => {
         //this line adds the class that applies the dark background back to the todo items in order to match the dark theme
         $("textarea").addClass("todo-item")
         $("small>input").addClass("completion")
+        $("#drk-mode-btn").attr("value", "Light Mode")
     }
     console.log(document.querySelector("html").getAttribute("data-bs-theme"))
 })
@@ -39,6 +42,10 @@ $("form[name=\"myForm\"]").on("submit", function (event) {
     if (event.originalEvent.submitter.name === "delete") {
         axios.delete(`/delete/${this.elements.id.value}`)
             .then((res) => {
+                //Using location.reload() is the lazy way to solve the issue where the UI wasnt refreshing when a reminder was deleted, and, this solutin is not efficient and not recommended, will try to implement the correct way to do this rn
+                // location.reload()
+                //this is the proper and effecient way to remove a deleted reminder from the UI without having to refresh the web page
+                $(`form[id=${this.elements.id.value}]`).remove()
                 console.log(res)
                 console.log("Deleted successfully")
             })

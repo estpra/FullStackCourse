@@ -2,13 +2,15 @@ import express from "express"
 import bodyParser from "body-parser"
 
 //Going to go with an array of objects where the object conatains the "date" attribute to hold the inputted date and the "value" attribute to hold the todo item as the value, this will allow me to use the built in sort method for arrays based on the value for the date attribute in ascending meaning least to greatest
-const todoItems = [
+const todoItems = []
+// Used this test data with the array to make sure it was working how i wanted, can uncomment it out to use the test data for testing purposes, just make sure to comment out the empty todoItems array
+// const todoItems = [
     //Keep in mind that the id attribute will be an int not a string in my production version, just keeping it as a string for now; when it comes to the production version, I will parse the value of the hidden input field to an int(Got ahead of myself and already turned them to ints before pushing to git lol) 
-    {id: 0, date: "2023-12-14", value: "Test1"},
-    {id: 1, date: "2023-12-18", value: "Test2"},
-    {id: 2, date: "2023-12-16", value: "Test3"},
-    {id: 3, date: "2023-12-15", value: "Test4"}
-]
+//     {id: 0, date: "2023-12-14", value: "Test1"},
+//     {id: 1, date: "2023-12-18", value: "Test2"},
+//     {id: 2, date: "2023-12-16", value: "Test3"},
+//     {id: 3, date: "2023-12-15", value: "Test4"}
+// ]
 //this variable keeps track of the unique id numbers assigned to each todo item by incrementing it by 1 after creating and adding a new todo item to to todoItems array
 //this variable will be used as the value for the hidden input field 
 let idNum = 0
@@ -21,9 +23,9 @@ app.use(express.json());
 
 //Thinking about sending the todItems array to the front end in this endpoint
 app.get("/", (req, res)=> {
-    res.render("index.ejs")
+    // res.render("index.ejs")
     //thinking this is how the final res.render will look like to pass in the todoItems array to the front end; note that we have to send a JS object as a response, hence why I put the todoItems array as the value of the items attribute of the JS object that is being sent over as a response
-    // res.render("index.ejs", {items: todoItems})
+    res.render("index.ejs", {items: todoItems})
     console.log(todoItems)
 })
 
@@ -49,7 +51,7 @@ app.delete("/delete/:id", (req, res)=>{
         todoItems.splice(indexOfItemToRemove, 1)
     }
     console.log(todoItems)
-    res.render("index.ejs")
+    res.render("index.ejs", {items: todoItems})
     //for some reason, res.redirect("/") breaks the response; my theory is that since we're supposed to be on the /delete/:id route and since we use the redirect function to redirect us to the homepage(which is the "/" url), the response sends back a 404 error saying that the DELETE request couldnt be found
 })
 

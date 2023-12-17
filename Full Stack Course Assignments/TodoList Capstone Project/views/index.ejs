@@ -1,12 +1,13 @@
 <%- include("./partials/header.ejs") %>
 
-  <input type="button" value="Dark mode" id="drk-mode-btn" data-bs-theme="light">
+  <input type="button" value="Light Mode" id="drk-mode-btn" data-bs-theme="light">
 
   <div class="title-container">
     <h1>RemindMe</h1>
     <p class="slogan">Dont let your todo list drown under the ocean!! Stay on top of it!</p>
   </div>
-  <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center" id="parent-container">
+  <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center"
+    id="parent-container">
     <div class="list-group">
 
       <form action="/submit" method="POST">
@@ -15,7 +16,8 @@
           <input class="form-check-input" type="checkbox" name="checkbox" style="font-size: 1.375em;">
           <!-- Realized that If I put the text area, input of type date, and the buttons in the create-container class, the buttons would extend to the size of the textarea(not even needing to use flex-grow since the create-container is a column)-->
           <div class="create-container response">
-            <textarea class="todo-item" name="todoItem" cols="40" rows="1" id="reminder" placeholder="New reminder"></textarea>
+            <textarea class="todo-item" name="todoItem" cols="40" rows="1" id="reminder"
+              placeholder="New reminder"></textarea>
             <small>
               <input type="date" name="date" class="completion" value="">
             </small>
@@ -26,26 +28,48 @@
         </label>
       </form>
 
-      <form name="myForm">
+      <% if(items.length > 0){ %>
+        <% for(let i=0; i < items.length; i++){%>
+          <!-- Note that I gave the form an id attribute so that on the DOM.js file, I could remove the deleted reminder from the UI -->
+          <form name="myForm" id=<%= items[i].id %>>
+            <label class="list-group-item d-flex gap-3">
+              <input class="form-check-input" type="checkbox" name="checkbox" value="yes" style="font-size: 1.375em;">
+              <div class="create-container response">
+                <textarea class="todo-item" id="reminder" name="todoItem" cols="40"
+                  rows="2"><%= items[i].value %></textarea>
+                <small>
+                  <!-- Testing to see if targeting the name where it is only differentiated by a number works to target that specific one -->
+                  <input type="date" name="date" class="completion" value=<%= items[i].date %>>
+                </small>
+                <!-- Adding the hidden input element that acts as an id to identify a specific todo item, should be same value as the number added to the names of the html elements that are apart of that todo item, this differentiates the html elements that make up a given todo item -->
+                <input type="number" name="id" value=<%= items[i].id %> hidden>
+                <input type="submit" class="btn btn-sm btn-outline-primary border-2" name="modify" value="Update">
+                <input type="submit" class="btn btn-sm btn-outline-danger border-2" name="delete" value="Delete">
+              </div>
+            </label>
+          </form>
+          <% } %>
+            <% } %>
+              <!-- <form name="myForm">
         <label class="list-group-item d-flex gap-3">
           <input class="form-check-input" type="checkbox" name="checkbox" value="yes" style="font-size: 1.375em;">
           <div class="create-container response">
             <textarea class="todo-item" id="reminder" name="todoItem" cols="40"
               rows="2">Finish sales report and lets see how much it can handle</textarea>
-            <small>
+            <small> -->
               <!-- Testing to see if targeting the name where it is only differentiated by a number works to target that specific one -->
-              <input type="date" name="date" class="completion">
-            </small>
-            <!-- Adding the hidden input element that acts as an id to identify a specific todo item, should be same value as the number added to the names of the html elements that are apart of that todo item, this differentiates the html elements that make up a given todo item -->
-            <input type="number" name="id" value="2" hidden>
-            <!-- <input type="number" name="" id="" hidden> -->
-            <input type="submit" class="btn btn-sm btn-outline-primary border-2" name="modify" value="Update">
+              <!-- <input type="date" name="date" class="completion">
+            </small> -->
+              <!-- Adding the hidden input element that acts as an id to identify a specific todo item, should be same value as the number added to the names of the html elements that are apart of that todo item, this differentiates the html elements that make up a given todo item -->
+              <!-- <input type="number" name="id" value="2" hidden> -->
+              <!-- <input type="number" name="" id="" hidden> -->
+              <!-- <input type="submit" class="btn btn-sm btn-outline-primary border-2" name="modify" value="Update">
             <input type="submit" class="btn btn-sm btn-outline-danger border-2" name="delete" value="Delete">
           </div>
         </label>
-      </form>
+      </form> -->
 
-      <form name="myForm">
+              <!-- <form name="myForm">
         <label class="list-group-item d-flex gap-3">
           <input class="form-check-input" type="checkbox" name="checkbox" value="yes" style="font-size: 1.375em;">
           <div class="create-container response">
@@ -59,7 +83,7 @@
             <input type="submit" class="btn btn-sm btn-outline-danger border-2" name="delete" value="Delete">
           </div>
         </label>
-      </form>
+      </form> -->
 
     </div>
     <!-- <div class="w-25 h-25" id="ep">test</div> -->
