@@ -30,7 +30,7 @@ app.get("/", (req, res)=> {
 })
 
 app.post("/submit", (req, res)=>{
-    // console.log(req.body)
+    console.log(req.body)
     //decided to push the date as the string provided by the input element of type date and not convert it to a Date object, because when you create a new Date object in JS, it prints out the date in the format 2023-12-15T00:00:00.000Z, and you cant use that value as a value for the input element of type date; instead, I converted them to Date objects in the lambda expression for the sort function
     todoItems.push({id: idNum, date: req.body.date, value: req.body.todoItem})
     //this line actually sorts the array by date, the order is ascending meaning least to greatest; if I wanted it to be descending order(greatest to least) just change the order of the lambda experession from a-b to b-a(this works becuase the sort method rules say that if the value of the subtraction in the lambda expression is positive, then the sorting order is b before a, if the value is zero, the sorting order is let them stay in the same place, if the value is negative, then the sorting order is a before b)
@@ -56,7 +56,7 @@ app.delete("/delete/:id", (req, res)=>{
 })
 
 app.put("/modify/:id", (req, res)=>{
-    // console.log(req.body)
+    console.log(req.body)
     // console.log(req.params)
     const id = parseInt(req.params.id)
     let indexOfItemToUpdate = todoItems.findIndex(obj => obj.id === id)
