@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Name Letters</title>
+
+  <!-- <style>
+    input{
+      border: none;
+    }
+    input:focus{
+      outline: none;
+    }
+  </style> -->
+</head>
+
+<body>
+  <!-- Write your code here -->
+  <% if(letterCount === 0) {%>
+    <h1>Enter Your Full Name</h1>
+    <% } else{ %>
+      <h1>There are <%= letterCount %> letters in your name</h1>
+      <% } %>
+  <form action="/submit" method="POST">
+    <a href="/"></a>
+    <!-- <input type="text" name="fName" placeholder="First name" value="test"> -->
+    <input type="text" name="fName" placeholder="First name" value="test">
+    <input type="text" name="lName" placeholder="Last name">
+    <textarea class="todo-item" name="0" id="reminder" cols="40" rows="1">Finish sales report and lets see how much it can handle</textarea>
+    <input type="submit" name="test" value="OK">
+  </form>
+</body>
+
+</html>
