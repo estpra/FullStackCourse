@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Taco Recipes</title>
+  <link rel="stylesheet" type="text/css" href="/styles/main.css">
+</head>
+
+<body>
+  <h1>Taco Town 🌮</h1>
+
+  <form action="/recipe" method="POST" class="buttons">
+    <button type="submit" value="chicken" name="choice">🍗</button>
+    <button type="submit" value="beef" name="choice">🥩</button>
+    <button type="submit" value="fish" name="choice">🐟</button>
+  </form>
+  <div id="recipeContainer" class="hidden">
+<%# Note that I had to add an index to the item object, that is because the item object is an array of objects, which in this case is just one object since I filtered the array of objects on the backend before sending this array as a response, and since the filter method returns an array, I still had to index it to access the single object it contains %>
+    <% if(locals.item){ %>
+      <h2><%= item[0].name %></h2>
+      <h3>Ingredients:</h3>
+      <ul id="ingredientsList">
+        
+        <li><%= item[0].ingredients.salsa.name %>, Spiciness: <%= item[0].ingredients.salsa.spiciness %></li>
+        <%# Might need to add a ejs tag that gives you the value to a variable passed from the backend to the front end, will see; didnt end up needing it %>
+        <% for(let i = 0; i < item[0].ingredients.toppings.length; i++) {%>
+        <li><%= item[0].ingredients.toppings[i].quantity %> of <%= item[0].ingredients.toppings[i].name %></li>
+        <% } %>
+      </ul>
+      <% }else{ %>
+        <h2>Pick your favourite taco ingredient 👆</h2>
+        <% } %>
+
+  </div>
+</body>
+
+</html>
