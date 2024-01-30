@@ -19,6 +19,7 @@ const port = 3000
 
 app.use(express.static("public"))
 app.use(bodyParser.urlencoded({ extended: true }));
+//Included this to parse the JSON objects that are sent over from the frontend axios request made in the DOM file
 app.use(express.json());
 
 //Thinking about sending the todItems array to the front end in this endpoint
