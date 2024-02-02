@@ -66,3 +66,21 @@ $("form[name=\"myForm\"]").on("submit", function (event) {
             .catch((err) => console.error(err))
     }
 })
+
+//Added this eventListener to automatically adjust the height of the text area as a user types so the user doenst have to manually adjust the height themselves
+$('textarea').on('input', function() {
+    this.style.height = 'auto';
+    this.style.height = (this.scrollHeight) + 'px';
+});
+
+//Next thing I want to figure out is how to automatically adjust the height of the text area based on its text contnent, not as the user types; this is for when a new reminder is added to the list so if it takes more than 2 lines, it can still show its full content
+//I think this is as good as its going to get when it comes to having the newly added reminder, whenever a user clicks on a textarea(reminder) it will resize the textarea to the size of the input
+$('textarea').on('click', function() {
+    this.style.height = 'auto';
+    this.style.height = (this.scrollHeight) + 'px';
+});
+   
+
+
+
+
