@@ -5,38 +5,139 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jokes!</title>
+
     <style>
-.title-cont{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-html{
-    background-color: #f5f5f5;
-}
+        .title-cont {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-.joke-container{
-    display: flex;
-}
+        html {
+            background-color: #c5c2c2;
+        }
 
-.joke-content{
-    min-width: 0;
-    overflow-wrap: break-word
-}
+        .joke-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-top: 50px;
+            /* Realized that if I wouldve tried to make the container a width of 400px that would've not worked cuz then I wouldnt have been able to center the elemets cuz the container needs to be able to take up 100% of the width to be able to center the felx items */
+            /* max-width: 400px; */
+            /* None of this was needed to achieve the wrapping effect I wanted, this is for more complicated websites, not the simple one I am creating. */
+            /* min-width: 0px; */
+            /* overflow-wrap: break-word; */
+            /* overflow-wrap: anywhere; */
+            /* height: fit-content; */
+        }
 
+        .joke-content {
+            border-style: solid;
+            text-align: justify;
+            padding: 5px;
+            width: 450px;
+            background-color: white;
+            margin-top: 0px;
+            font-size: larger;
+        }
+
+        h2 {
+            margin-bottom: 0px;
+            /* Using the regular width property allowed me to be able to move the text to the left like how I wanted to; if I were to use the max-width property it would've not worked cuz the max-width property just specifies how big an element can get but does not make it the specific width */
+            width: 450px;
+            text-align: start;
+        }
+
+        .btns-cont {
+            display: flex;
+            width: 450px;
+            justify-content: space-between;
+        }
+
+        /* This will hide the placeholder text from the option menu*/
+        option[value=""][disabled] {
+            display: none;
+        }
+
+        #create-joke {
+            margin-top: 50px;
+            resize: none;
+            margin-bottom: 20px;
+            border: 3px solid #000;
+            padding: 5px;
+        }
+
+        .create-joke-cont {
+            display: flex;
+            width: 400px;
+            flex-direction: column;
+        }
+
+        input[type="submit"] {
+            background-color: green;
+            border-radius: 10px;
+            border-style: solid;
+            font-size: larger;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #48b448f7;
+            /* Lighten the background color on hover */
+        }
+
+        #categories{
+            font-size: larger;
+        }
     </style>
 </head>
 
 <body>
 
-<div class="title-cont">
-<h1>Jokes For The Laughs😂🤣🤪</h1>
-</div>
+    <div class="title-cont">
+        <h1>Jokes For The Laughs😂🤣🤪</h1>
+    </div>
 
-<div class="joke-container">
-<input class="joke-content" type="text">
-</div>
+    <div class="joke-container">
+        <h2>Joke:</h2>
+        <p class="joke-content" id="joke">
+            <!-- Have to add this if statement cuz we're not always getting a joke so have to check if the joke array exists or not using locals -->
+            <% if(locals.joke){ %>
+                <% if(joke.type==="twopart" ){ %>
+                    <%= joke.setup %> <br>
+                        <%= joke.delivery %>
+                            <% } else{%>
+                                <%= joke.joke %>
+                                    <% } %>
+                                        <% } %>
+        </p>
+        <form action="/getJoke" method="GET">
+            <div class="btns-cont">
+                <select name="categories" id="categories">
+                    <option value="" disabled selected>Type of Joke</option>
+                    <% for(let i=0; i < categories.length; i++){ %>
+                        <option value=<%=categories[i] %>><%= categories[i] %>
+                        </option>
+                        <% } %>
+                </select>
+                <input type="submit" value="Tell Me A Joke" name="getJoke">
+            </div>
+        </form>
+        <!-- This commented out form is for potential future development on this simple website for adding a new joke; see "Future Ideas to add to project" section on the notes for this project -->
+        <!-- <form action="/addJoke" method="post">
+            <div class="create-joke-cont">
+                <textarea name="createJoke" id="create-joke" rows="1" placeholder="Add your own joke!"></textarea>
+                <input type="submit" value="Submit Joke" name="submitJoke">
+            </div>
+        </form> -->
+    </div>
 
+    <!-- <script>
+        document.querySelector('textarea').addEventListener('input', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+    </script> -->
 </body>
 
 </html>
