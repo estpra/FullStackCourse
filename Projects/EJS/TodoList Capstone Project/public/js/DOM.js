@@ -1,10 +1,3 @@
-// if(document.querySelector("html").getAttribute("data-bs-theme") === "dark")
-// {
-//     document.querySelector("footer").classList.toggle("drk-mode-waves")
-//     // document.querySelector("footer").classList.remove("footer-look")
-//     console.log(document.querySelector("footer").classList.value)
-// }
-
 $("#drk-mode-btn").on("click", () => {
     if (document.querySelector("html").getAttribute("data-bs-theme") === "dark") {
         //if you get here, the theme is currently dark, so remove the attributes that enable the dark theme to revert back to light theme
@@ -26,9 +19,6 @@ $("#drk-mode-btn").on("click", () => {
     console.log(document.querySelector("html").getAttribute("data-bs-theme"))
 })
 
-// document.querySelector(".todo-item").addEventListener("keydown", ()=>{
-
-// })
 
 //gave the todo item forms an id to identify them by their id name so I wouldnt have to create the axios code to handle the POST request, cuz if I target the form element, since it prevents its default request(which is post in this case), the form for the create a reminder would not create a post request like it should, instead it would go to the event applied to it which is the axios http requests and then I would have to handle the post reqeust there; so really, did this for convinience 
 $("form[name=\"myForm\"]").on("submit", function (event) {
@@ -60,8 +50,12 @@ $("form[name=\"myForm\"]").on("submit", function (event) {
         }
         axios.put(`/modify/${this.elements.id.value}`, newData)
             .then((res) => {
-                console.log(res)
-                console.log("Updated Successfully")
+                //Had to use the location.reload() method to properly show the new order of modified reminders for the edge case when a previously added reminder's due date is changed to a later or sooner date that could change its order in the list of existing reminders
+                location.reload()
+                //In order to see these console.log statements, you MUST comment out the location.reload() method cuz it refreshes the page and that would get rid of the comments from the console on the browser
+                // console.log(previousID);
+                // console.log(res)
+                // console.log("Updated Successfully")
             })
             .catch((err) => console.error(err))
     }
@@ -74,8 +68,8 @@ $('textarea').on('input', function() {
 });
 
 //Next thing I want to figure out is how to automatically adjust the height of the text area based on its text contnent, not as the user types; this is for when a new reminder is added to the list so if it takes more than 2 lines, it can still show its full content
-//I think this is as good as its going to get when it comes to having the newly added reminder, whenever a user clicks on a textarea(reminder) it will resize the textarea to the size of the input
-$('textarea').on('click', function() {
+//I think this is as good as its going to get when it comes to having the newly added reminder, whenever a user hovers over a textarea(reminder) it will resize the textarea to the size of the input
+$('textarea').on('mouseover', function() {
     this.style.height = 'auto';
     this.style.height = (this.scrollHeight) + 'px';
 });

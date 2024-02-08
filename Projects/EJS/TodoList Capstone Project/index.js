@@ -40,6 +40,7 @@ app.post("/submit", (req, res)=>{
     // console.log(todoItems[0].date)
     // res.render("index.ejs")
     idNum++
+    //For some reason it seems like you can only use the res.redirect when you make a post request
     res.redirect("/")
 })
 
@@ -52,7 +53,8 @@ app.delete("/delete/:id", (req, res)=>{
         todoItems.splice(indexOfItemToRemove, 1)
     }
     console.log(todoItems)
-    res.render("index.ejs", {items: todoItems})
+    //Thinking that I dont need to send the index.ejs file again, that way I can avoid having to render each individual todo item on the front end since the reminders are already sorted before a user deletes it
+    res.status(200).send("Deleted Successfully")
     //for some reason, res.redirect("/") breaks the response; my theory is that since we're supposed to be on the /delete/:id route and since we use the redirect function to redirect us to the homepage(which is the "/" url), the response sends back a 404 error saying that the DELETE request couldnt be found
 })
 
@@ -65,12 +67,12 @@ app.put("/modify/:id", (req, res)=>{
     {
         //note that the value for the value attribute is req.body.item and not req.body.todoItem like it is in the "/" route becuase this req.body comes from the JS object that I sent over from the front end using axios and I'm thinking about using the attribute name "item" rather than "todoItem" to avoid redundancy when sending over the body from the front end using axios 
         todoItems[indexOfItemToUpdate] = {id: id, date: req.body.date, value: req.body.item}
+        todoItems.sort((a, b)=> new Date(a.date) - new Date(b.date))
     }
     console.log(todoItems)
-    //Going to see if just sending the status code along with a message as a response is enough or if I need to use res.render to avoid having the page's loading circle load indefinitely
-    //Thinking that I dont need to send the index.ejs file again, that way I can avoid having to render each individual todo item on the front end like how I'm planning
-    res.status(200).send("Updated Successfully")
+    res.render("index.ejs", {items: todoItems})
 })
+
 
 app.listen(port, (req, res)=> {
     console.log(`Listening on port ${port}`)

@@ -48,6 +48,7 @@ input{
     /* Leaving this styling on for now, matches the font of the title */
     font-family: MuseoModerno, sans-serif;
     font-weight: bold;
+    resize: none;
   }
 
   textarea:focus{
