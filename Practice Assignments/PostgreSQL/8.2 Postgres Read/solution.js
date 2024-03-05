@@ -2,31 +2,25 @@ import express from "express";
 import bodyParser from "body-parser";
 import pg from "pg";
 
-const app = express();
-const port = 3000;
-
 const db = new pg.Client({
   user: "postgres",
   host: "localhost",
   database: "world",
-  password: "King0fDBs",
-  port: 5432
+  password: "123456",
+  port: 5432,
 });
+
+const app = express();
+const port = 3000;
 
 db.connect();
 
-let quiz = [
-  { country: "France", capital: "Paris" },
-  { country: "United Kingdom", capital: "London" },
-  { country: "United States of America", capital: "New York" },
-];
-
-db.query("SELECT * FROM capitals", (err, res) => {
+let quiz = [];
+db.query("SELECT * FROM flags", (err, res) => {
   if (err) {
     console.error("Error executing query", err.stack);
   } else {
     quiz = res.rows;
-    // console.log(quiz);
   }
   db.end();
 });
@@ -42,7 +36,7 @@ let currentQuestion = {};
 // GET home page
 app.get("/", async (req, res) => {
   totalCorrect = 0;
-  nextQuestion();
+  await nextQuestion();
   console.log(currentQuestion);
   res.render("index.ejs", { question: currentQuestion });
 });
@@ -51,7 +45,7 @@ app.get("/", async (req, res) => {
 app.post("/submit", (req, res) => {
   let answer = req.body.answer.trim();
   let isCorrect = false;
-  if (currentQuestion.capital.toLowerCase() === answer.toLowerCase()) {
+  if (currentQuestion.name.toLowerCase() === answer.toLowerCase()) {
     totalCorrect++;
     console.log(totalCorrect);
     isCorrect = true;
@@ -65,8 +59,7 @@ app.post("/submit", (req, res) => {
   });
 });
 
-//~~seems like this is an async function cuz we have to wait for the query made to the database to return its data since the rest of the code runs essentially instantaneously~~ 
-function nextQuestion() {
+async function nextQuestion() {
   const randomCountry = quiz[Math.floor(Math.random() * quiz.length)];
 
   currentQuestion = randomCountry;

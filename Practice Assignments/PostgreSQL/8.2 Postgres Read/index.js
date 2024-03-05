@@ -4,6 +4,7 @@ import pg from "pg";
 
 const app = express();
 const port = 3000;
+let quiz = []
 
 const db = new pg.Client({
   user: "postgres",
@@ -15,13 +16,7 @@ const db = new pg.Client({
 
 db.connect();
 
-let quiz = [
-  { country: "France", capital: "Paris" },
-  { country: "United Kingdom", capital: "London" },
-  { country: "United States of America", capital: "New York" },
-];
-
-db.query("SELECT * FROM capitals", (err, res) => {
+db.query("SELECT * FROM flags", (err, res) => {
   if (err) {
     console.error("Error executing query", err.stack);
   } else {
@@ -39,8 +34,9 @@ app.use(express.static("public"));
 
 let currentQuestion = {};
 
+
 // GET home page
-app.get("/", async (req, res) => {
+app.get("/", (req, res) => {
   totalCorrect = 0;
   nextQuestion();
   console.log(currentQuestion);
@@ -65,10 +61,8 @@ app.post("/submit", (req, res) => {
   });
 });
 
-//~~seems like this is an async function cuz we have to wait for the query made to the database to return its data since the rest of the code runs essentially instantaneously~~ 
 function nextQuestion() {
   const randomCountry = quiz[Math.floor(Math.random() * quiz.length)];
-
   currentQuestion = randomCountry;
 }
 
