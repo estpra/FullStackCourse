@@ -34,7 +34,7 @@ async function checkVisisted() {
   return countries;
 }
 
-async function checkVisistedForUser(userId){
+async function checkVisistedForUser(userId) {
   const result = await db.query(`SELECT country_code FROM visited_countries where user_id = ${userId}`);
   let countries = [];
   result.rows.forEach((country) => {
@@ -43,10 +43,10 @@ async function checkVisistedForUser(userId){
   return countries;
 }
 
-async function getUsers(){
+async function getUsers() {
   try {
-  users = await db.query("select * from users");
-  } catch(err){
+    users = await db.query("select * from users");
+  } catch (err) {
     console.log(err);
   }
   return users.rows;
@@ -75,7 +75,7 @@ app.post("/add", async (req, res) => {
 
 app.post("/user", async (req, res) => {
   // console.log(req.body.user);
-  try{
+  try {
     currentUserId = req.body.user
     let user = await db.query(`select * from users where id = ${currentUserId}`)
     // console.log(user.rows);
@@ -88,8 +88,8 @@ app.post("/user", async (req, res) => {
       users: users,
       color: user.rows[0].color,
     });
-  } catch(err){
-      res.render("new.ejs");
+  } catch (err) {
+    res.render("new.ejs");
   }
 
 });
@@ -112,7 +112,7 @@ app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
 
-async function insertCountry(req, res){
+async function insertCountry(req, res) {
   // users = users
   //made query be able to accept any case by tunring the input and record from the databse lowercase so it doesnt matter
   let resultArr = await db.query(`select country_code from countries where lower(country_name) like lower('${req.body.country}%')`)
@@ -120,36 +120,40 @@ async function insertCountry(req, res){
   // console.log(resultArr.rows.length);
   //Put a check for resultArr.rows.length's length being 247 becuase for whatever reason, when a user enters an empty string(wihtout a space), instead of returning an empty array with size of 0, it returns 247; an empty string with a space returns 0 so that is handled here well
   const countries = await checkVisisted();
-  if(resultArr.rows.length == 0 || resultArr.rows.length == 247){
+  if (resultArr.rows.length == 0 || resultArr.rows.length == 247) {
     // const countries = await checkVisisted();
-    res.render("index.ejs", {error: "Country does not exist", total: countries.length, countries: countries, users: users,
-    color: "teal"})
+    res.render("index.ejs", {
+      error: "Country does not exist", total: countries.length, countries: countries, users: users,
+      color: "teal"
+    })
   }
-  else{
-  let countryCode = resultArr.rows[0].country_code
-  let result = await db.query(`select * from visited_countries where country_code like upper('${countryCode}%')`)
-  if(result.rows.length == 0){
-    let countryCodeArr = await db.query(`select country_code from countries where lower(country_name) like lower('${req.body.country}%')`)
-    let countryCode = countryCodeArr.rows[0].country_code
-    db.query(`INSERT INTO visited_countries(country_code) values('${countryCode}');`, (err, res) => {
-      if (err) {
-        console.error("Error executing query", err);
-      } else {
-        // let response = res.rows
-        // console.log(response);
-      }
-      // db.end();
-    });
-    res.redirect("/")
+  else {
+    let countryCode = resultArr.rows[0].country_code
+    let result = await db.query(`select * from visited_countries where country_code like upper('${countryCode}%')`)
+    if (result.rows.length == 0) {
+      let countryCodeArr = await db.query(`select country_code from countries where lower(country_name) like lower('${req.body.country}%')`)
+      let countryCode = countryCodeArr.rows[0].country_code
+      db.query(`INSERT INTO visited_countries(country_code) values('${countryCode}');`, (err, res) => {
+        if (err) {
+          console.error("Error executing query", err);
+        } else {
+          // let response = res.rows
+          // console.log(response);
+        }
+        // db.end();
+      });
+      res.redirect("/")
+    }
+    else {
+      res.render("index.ejs", {
+        error: "Country already added", total: countries.length, countries: countries, users: users,
+        color: "teal"
+      })
+    }
   }
-  else{
-    res.render("index.ejs", {error: "Country already added", total: countries.length, countries: countries, users: users,
-    color: "teal"})
-  }
-}
 }
 
-async function insertCountryForUser(req, res, ){
+async function insertCountryForUser(req, res,) {
   // users = users
   //made query be able to accept any case by tunring the input and record from the databse lowercase so it doesnt matter
   let resultArr = await db.query(`select country_code from countries where lower(country_name) like lower('${req.body.country}%')`)
@@ -157,31 +161,35 @@ async function insertCountryForUser(req, res, ){
   // console.log(resultArr.rows.length);
   //Put a check for resultArr.rows.length's length being 247 becuase for whatever reason, when a user enters an empty string(wihtout a space), instead of returning an empty array with size of 0, it returns 247; an empty string with a space returns 0 so that is handled here well
   const countries = await checkVisisted();
-  if(resultArr.rows.length == 0 || resultArr.rows.length == 247){
+  if (resultArr.rows.length == 0 || resultArr.rows.length == 247) {
     // const countries = await checkVisisted();
-    res.render("index.ejs", {error: "Country does not exist", total: countries.length, countries: countries, users: users,
-    color: "teal"})
+    res.render("index.ejs", {
+      error: "Country does not exist", total: countries.length, countries: countries, users: users,
+      color: "teal"
+    })
   }
-  else{
-  let countryCode = resultArr.rows[0].country_code
-  let result = await db.query(`select * from visited_countries where country_code like upper('${countryCode}%')`)
-  if(result.rows.length == 0){
-    let countryCodeArr = await db.query(`select country_code from countries where lower(country_name) like lower('${req.body.country}%')`)
-    let countryCode = countryCodeArr.rows[0].country_code
-    db.query(`INSERT INTO visited_countries(country_code) values('${countryCode}');`, (err, res) => {
-      if (err) {
-        console.error("Error executing query", err);
-      } else {
-        // let response = res.rows
-        // console.log(response);
-      }
-      // db.end();
-    });
-    res.redirect("/")
+  else {
+    let countryCode = resultArr.rows[0].country_code
+    let result = await db.query(`select * from visited_countries where country_code like upper('${countryCode}%')`)
+    if (result.rows.length == 0) {
+      let countryCodeArr = await db.query(`select country_code from countries where lower(country_name) like lower('${req.body.country}%')`)
+      let countryCode = countryCodeArr.rows[0].country_code
+      db.query(`INSERT INTO visited_countries(country_code) values('${countryCode}');`, (err, res) => {
+        if (err) {
+          console.error("Error executing query", err);
+        } else {
+          // let response = res.rows
+          // console.log(response);
+        }
+        // db.end();
+      });
+      res.redirect("/")
+    }
+    else {
+      res.render("index.ejs", {
+        error: "Country already added", total: countries.length, countries: countries, users: users,
+        color: "teal"
+      })
+    }
   }
-  else{
-    res.render("index.ejs", {error: "Country already added", total: countries.length, countries: countries, users: users,
-    color: "teal"})
-  }
-}
 }
