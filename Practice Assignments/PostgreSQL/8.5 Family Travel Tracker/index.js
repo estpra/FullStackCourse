@@ -18,7 +18,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 //initializing currentUserId to 1 so it can alwyas render the first entry in visited_countries table when the webpage is first run
-let currentUserId = 1;
+//changed this to default to using the getRandomUderId function as there may not be a user with the id of 1
+let currentUserId = await getRandomUserId();
 let users = []
 
 async function checkVisisted() {
@@ -74,11 +75,20 @@ app.get("/", async (req, res) => {
   //using currentUserId so whatever current user tab is selected or first user can be rendered until a new user tab is selected
   const countries = await checkVisistedForUser(currentUserId);
   let currUser = await db.query(`select * from users where id = ${currentUserId}`)
+  //Added lines 78-84 to handle case where there are no users added yet since it would crash since there wasnt a color for no users
+  let color
+  if(currUser.rows.length == 0){
+    color = ""
+  }
+  else{
+    color = currUser.rows[0].color
+  }
   res.render("index.ejs", {
     countries: countries,
     total: countries.length,
     users: users,
-    color: currUser.rows[0].color,
+    color: color,
+    // color: currUser.rows[0].color,
   });
 });
 

@@ -13,7 +13,8 @@
   <h1>Add a Family Member</h1>
   <form action="/new" method="post">
     <p>What's your name?</p>
-    <input type="text" name="name">
+    <!-- added the autocomplete attribute so previously inputted values wouldnt be automatically recommended -->
+    <input type="text" autocomplete="off" name="name">
 
     <p>Pick a color:</p>
     <div class="colors">

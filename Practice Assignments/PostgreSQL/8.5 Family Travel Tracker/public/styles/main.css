@@ -8,7 +8,9 @@ html {
 }
 html,
 body {
-  height: 100%;
+  /* height: 100%; */
+  /* changed the height value so the whole world map would fit without having to scroll */
+  height: 95%;
 }
 body {
   background: #21252b;
