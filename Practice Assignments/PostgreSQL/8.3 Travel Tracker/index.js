@@ -142,7 +142,7 @@ async function insertCountry(req, res){
   if(resultArr.rows.length == 0 || resultArr.rows.length == 247){
     res.render("index.ejs", {error: "Country does not exist", total: total, countries: countries})
   }
-  else{
+  else {
   let countryCode = resultArr.rows[0].country_code
   let result = await db.query(`select * from visited_countries where country_code like upper('${countryCode}%')`)
   if(result.rows.length == 0){

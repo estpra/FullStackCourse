@@ -94,6 +94,15 @@ button {
   cursor: pointer;
 }
 
+
+/* div[class=adBtn]{
+  margin-top: 1rem;
+} */
+
+form[name=delBtn]{
+  margin-top: 1rem;
+}
+
 .total-count {
   font-family: "Roboto", sans-serif;
   color: white;

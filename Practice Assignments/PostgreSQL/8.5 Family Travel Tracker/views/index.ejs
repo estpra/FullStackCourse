@@ -23,11 +23,22 @@
 
   </form>
 
+  
   <form action="/add" method="post">
     <input type="text" name="country" autofocus placeholder="<%= locals.error ? error :  'Enter country name'%>">
+    <!-- <div class="adBtn"> -->
     <button type="submit" style="background-color: <%= color %>;">Add</button>
+    <!-- <form action="/delete" method="post">
+      <button type="submit" style="background-color: <%= color %>;">Delete Current User</button>
+    </form> -->
+  <!-- </div> -->
   </form>
-  
+  <div class="adBtn"></div>
+  <form action="/delete" method="post" name="delBtn">
+    <button type="submit" style="background-color: <%= color %>;">Delete Current User</button>
+  </form>
+</div>
+
   <section class="ag-canvas">
     <svg class="ag-canvas_svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
       version="1.1" viewBox="0 0 1008 651">
