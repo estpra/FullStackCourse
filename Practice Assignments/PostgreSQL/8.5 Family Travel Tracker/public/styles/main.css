@@ -8,9 +8,8 @@ html {
 }
 html,
 body {
-  /* height: 100%; */
-  /* changed the height value so the whole world map would fit without having to scroll */
-  height: 95%;
+  /* Leaving the size at 100% for viewing on desktops and bigger screens as it fits well, added a media query to shrink the height when viewing on a laptop or smaller */
+  height: 100%; 
 }
 body {
   background: #21252b;
@@ -454,8 +453,16 @@ form[name=delBtn]{
   margin-bottom: 20px;
 }
 
+/* Added this media query to handle height when viewing on laptops to ensure map is fully visible wihthout having to scroll up and down */
+@media (max-width: 1440px){
+  html, body{
+    height: 93%;
+  }
+}
+
 @media screen and (max-width: 767px) {
   .tab-view-theme-5 > input:checked + label:after {
     display: none;
   }
 }
+

@@ -32,12 +32,17 @@ async function checkVisisted() {
 }
 
 async function checkVisistedForUser(userId) {
+  try{
   const result = await db.query(`SELECT country_code FROM visited_countries where user_id = ${userId}`);
   let countries = [];
   result.rows.forEach((country) => {
     countries.push(country.country_code);
   });
   return countries;
+}
+catch(err){
+  console.log(err);
+}
 }
 
 async function getUsers() {
@@ -52,12 +57,18 @@ async function getUsers() {
 async function getRandomUserId(){
   try{
     let result = await db.query("select id from users")
+    //Had to add this if else statement cuz if web app is started off from scratch, when the query is ran and we get back an empty array, nothing is added to userIds array so the length is zero and so is the index, but since userIds is empty, when we try indexing we get null(or undefined) which caused the app to crash, so if the query above returns a list of size zero, return zero so the web app wont crash
+    if(result.rows.length != 0){
     let userIds = []
     result.rows.forEach((user) => {
       userIds.push(user.id);
     });
     let ranIndex = parseInt(Math.random() * userIds.length)
     return userIds[ranIndex]
+  }
+  else{
+    return 0
+  }
   }
   catch (err){
 console.log(err);
