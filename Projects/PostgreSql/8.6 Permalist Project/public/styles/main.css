@@ -10,6 +10,23 @@ body {
   justify-content: stretch;
   min-height: 95vh;
 }
+
+select {
+  flex-grow: 1;
+  text-align: center;
+  font-size: larger;
+}
+
+.s-container > input{
+  flex-grow: 1;
+  text-align: center;
+  font-size: larger;
+}
+
+.s-container{
+  display: flex;
+}
+
 main {
   text-align: center;
   flex: 1 0 auto;

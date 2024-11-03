@@ -1,11 +1,21 @@
 <%- include('partials/header.ejs'); -%>
 
   <div class="box" id="heading">
-    <h1>
-      <%= listTitle %>
-    </h1>
+    <!-- <h1>
+      <%# listTitle %>
+    </h1> -->
+  <div class="s-container">
+    <!-- <select name="dates" id="dates">
+      <option value="<%= listTitle %>"><h1> <%= listTitle %> </h1></option>
+    </select> -->
+    <input type="date" id="datePicker" name="datePicker">
+  </div>
   </div>
   <div class="box">
+    <form class="item" action="/add" method="post">
+      <input type="text" name="newItem" placeholder="New Item" autocomplete="off" autofocus="true" />
+      <button class="add" type="submit" name="list" value=<%=listTitle %> >+</button>
+    </form>
     <% for(let item of listItems){%>
       <div class="item">
         <form action="/delete" method="post">
@@ -13,7 +23,7 @@
         </form>
 
         <p id="title<%=item.id%>">
-          <%= item.title %>
+         <%= item.title %>
         </p>
 
         <form class="edit" action="/edit" method="post">
@@ -28,10 +38,10 @@
       </div>
       <% } %>
 
-        <form class="item" action="/add" method="post">
+        <!-- <form class="item" action="/add" method="post">
           <input type="text" name="newItem" placeholder="New Item" autocomplete="off" autofocus="true" />
           <button class="add" type="submit" name="list" value=<%=listTitle %> >+</button>
-        </form>
+        </form> -->
   </div>
 
   <script>

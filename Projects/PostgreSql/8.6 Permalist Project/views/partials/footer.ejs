@@ -1,6 +1,15 @@
 </main>
 <footer>Copyright © <%= new Date().getFullYear() %>
 </footer>
+
+<script>
+    // Get today's date
+    console.log(new Date().toISOString());
+    const today = new Date().toISOString().split('T')[0];
+
+    // Set the value of the date input to today's date
+    document.getElementById('datePicker').value = today;
+</script>
 </body>
 
 </html>
