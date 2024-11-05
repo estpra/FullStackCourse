@@ -8,8 +8,8 @@ html {
 }
 html,
 body {
-  /* Leaving the size at 100% for viewing on desktops and bigger screens as it fits well, added a media query to shrink the height when viewing on a laptop or smaller */
-  height: 100%; 
+  /* Leaving the size at 95% for viewing on desktops and bigger screens as it fits well, added a media query to shrink the height when viewing on a laptop or smaller */
+  height: 95%; 
 }
 body {
   background: #21252b;
