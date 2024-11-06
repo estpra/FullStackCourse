@@ -1,67 +1,47 @@
 <%- include('partials/header.ejs'); -%>
-
-  <div class="box" id="heading">
-    <!-- <h1>
-      <%# listTitle %>
-    </h1> -->
   <form action="/add" method="post">
-  <div class="s-container">
-    <form action="/" method="get" class="newDate">
-    <input type="date" id="datePicker" name="datePicker" value="<%= listTitle %>">
-  </form>
-  </div>
-  </div>
-  <div class="box">
-    <div class="item">
-    <!-- <form class="item" action="/add" method="post"> -->
-      <input type="text" name="newItem" placeholder="New Item" autocomplete="off" autofocus="true" />
-      <button class="add" type="submit" name="list" value="<%=listTitle %>" >+</button>
-    </div>
-  </form>
-    <!-- </form> -->
-    <% for(let item of listItems){%>
-      <div class="item">
-        <form action="/delete" method="post">
-          <input type="checkbox" onchange="this.form.submit()" name="deleteItemId" value="<%= item.id %>">
-        </form>
-
-        <p id="title<%=item.id%>">
-         <%= item.title %>
-        </p>
-
-        <form class="edit" action="/edit" method="post">
-          <input type="hidden" name="updatedItemId" value="<%= item.id %>">
-          <input id="input<%=item.id%>" type="text" name="updatedItemTitle" value="<%= item.title %>" autocomplete="off"
-            autofocus="true" hidden="true" />
-          <button id="done<%=item.id%>" class="edit" type="submit" hidden><img class="icon"
-              src="/assets/icons/check-solid.svg" alt="tick image"></button>
-        </form>
-        <button id="edit<%=item.id%>" class="edit" onclick="handler('<%=item.id%>')"><img class="icon"
-            src="/assets/icons/pencil-solid.svg" alt="pencil image"></button>
+    <div class="box" id="heading">
+      <div class="s-container">
+        <input type="date" id="datePicker" name="datePicker" value="<%= listTitle %>" onchange="this.form.submit()">
       </div>
-      <% } %>
+    </div>
+    <div class="box">
+      <div class="item">
+        <input type="text" name="newItem" placeholder="New Item" autocomplete="off" autofocus="true" />
+        <button class="add" type="submit" name="list" value="<%=listTitle %>">+</button>
+      </div>
+    <!-- </div> -->
+  </form>
+  <% for(let item of listItems){%>
+    <div class="item">
+      <form action="/delete" method="post">
+        <input type="checkbox" onchange="this.form.submit()" name="deleteItemId" value="<%= item.id %>">
+      </form>
 
-        <!-- <form class="item" action="/add" method="post">
-          <input type="text" name="newItem" placeholder="New Item" autocomplete="off" autofocus="true" />
-          <button class="add" type="submit" name="list" value=<%#listTitle %> >+</button>
-        </form> -->
-  </div>
+      <p id="title<%=item.id%>">
+        <%= item.title %>
+      </p>
 
-  <!-- <script src="../public/js/modernizr-custom.js"></script> -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script>
-    function handler(id) {
-      document.getElementById("title" + id).setAttribute("hidden", true)
-      document.getElementById("edit" + id).setAttribute("hidden", true)
-      document.getElementById("done" + id).removeAttribute("hidden")
-      document.getElementById("input" + id).removeAttribute("hidden")
-    }
+      <form class="edit" action="/edit" method="post">
+        <input type="hidden" name="updatedItemId" value="<%= item.id %>">
+        <input id="input<%=item.id%>" type="text" name="updatedItemTitle" value="<%= item.title %>" autocomplete="off"
+          autofocus="true" hidden />
+        <button id="done<%=item.id%>" class="edit" type="submit" hidden><img class="icon"
+            src="/assets/icons/check-solid.svg" alt="tick image"></button>
+      </form>
+      <button id="edit<%=item.id%>" class="edit" onclick="handler('<%=item.id%>')"><img class="icon"
+          src="/assets/icons/pencil-solid.svg" alt="pencil image"></button>
+    </div>
+    <% } %>
+      </div>
 
-//     $(document).ready(function() {
-//       event.preventDefault();
-//     $('#datePicker').on('change', function() {
-//       $('.newDate').submit();
-//     });
-// });
-  </script>
-  <%- include('partials/footer.ejs'); -%>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+      <script>
+        function handler(id) {
+          document.getElementById("title" + id).setAttribute("hidden", true)
+          document.getElementById("edit" + id).setAttribute("hidden", true)
+          document.getElementById("done" + id).removeAttribute("hidden")
+          document.getElementById("input" + id).removeAttribute("hidden")
+        }
+      </script>
+      <%- include('partials/footer.ejs'); -%>

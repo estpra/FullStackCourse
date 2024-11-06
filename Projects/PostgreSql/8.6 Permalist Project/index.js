@@ -21,6 +21,7 @@ app.get("/", (req, res) => {
   // const dateObj = convertStrToDate(dateStr)
   console.log(`datePicker: ${req.body.datePicker}`);
   // let dateStr = "2024-11-10"
+  //TODO: get the current date in the format of yyyy-mm-dd to query the database and get all the todo items for the current date; which by default is the present day the app is being used
   let dateStr = ""
   res.render("index.ejs", {
     listTitle: dateStr,
@@ -31,11 +32,18 @@ app.get("/", (req, res) => {
 app.post("/add", (req, res) => {
   const item = req.body.newItem;
   console.log(`datePicker: ${req.body.datePicker}`);
+  console.log("Tf??");
+  
+  //TODO: add if statement that checks if the item variable is an empty string and if it is, dont push the item to the items array
   items.push({ title: item });
+  //TODO: use res.render rather than res.redirect as the "/" endpoint will always query the database for the current present day, will more than likely need to do this for the other endpoints
   res.redirect("/");
 });
 
-app.post("/edit", (req, res) => { });
+app.post("/edit", (req, res) => { 
+  console.log("Should be here");
+  
+});
 
 app.post("/delete", (req, res) => { });
 
