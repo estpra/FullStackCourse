@@ -2,14 +2,26 @@
 <footer>Copyright © <%= new Date().getFullYear() %>
 </footer>
 
-<script>
+<script> 
+$('#datePicker').on('change', function() {
+      $('.newDate').submit();
+    });
     // Get today's date
     console.log(new Date().toISOString());
     const today = new Date().toISOString().split('T')[0];
 
     // Set the value of the date input to today's date
-    document.getElementById('datePicker').value = today;
-</script>
+    $('#datePicker').attr("value", today);
+
+    $(document).ready(function() {
+    //   event.preventDefault();
+    $('#datePicker').on('change', function() {
+      $('.newDate').submit(function(){
+        this.submit();
+      });
+    });
+});
+</script> 
 </body>
 
 </html>

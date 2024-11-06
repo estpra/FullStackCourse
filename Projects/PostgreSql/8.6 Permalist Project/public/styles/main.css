@@ -11,16 +11,18 @@ body {
   min-height: 95vh;
 }
 
-select {
+/* select {
   flex-grow: 1;
   text-align: center;
   font-size: larger;
-}
+} */
 
 .s-container > input{
   flex-grow: 1;
   text-align: center;
-  font-size: larger;
+  font-size: x-large;
+  color:#fff;
+  background-color: #a683e3;
 }
 
 .s-container{
@@ -59,6 +61,11 @@ form.edit {
   border-bottom: 1px solid #f1f1f1;
 }
 
+.item input{
+  text-align: center;
+  margin-left: 20px;
+}
+
 .item:last-child {
   border-bottom: 0;
 }
@@ -75,7 +82,17 @@ p {
   color: #00204a;
 }
 
-form {
+/* form {
+  text-align: center;
+  margin-left: 20px;
+} */
+
+form[action="/delete"]{
+  text-align: center;
+  margin-left: 20px;
+}
+
+form[action="/edit"]{
   text-align: center;
   margin-left: 20px;
 }
