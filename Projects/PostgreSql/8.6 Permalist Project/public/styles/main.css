@@ -14,7 +14,7 @@ body {
 #datePicker{
   flex-grow: 1;
   text-align: center;
-  font-size: x-large;
+  font-size: xx-large;
   color:#fff;
   background-color: #a683e3;
   border: none;
@@ -28,7 +28,8 @@ body {
 }
 
 main {
-  text-align: center;
+  /* commented out this line due to it causing weird issue where the newly added todo items would be slightly moved to the left compared to the already exisitng items */
+  /* text-align: center; */
   flex: 1 0 auto;
 }
 h1 {
@@ -50,6 +51,8 @@ h1 {
 }
 form.edit {
   display: flex;
+  text-align: center;
+  margin-left: 20px;
 }
 
 .item {
@@ -80,7 +83,13 @@ p {
   color: #00204a;
 }
 
-form {
+/* Commented this out due to it causing a weird issue where the title would not fill the whole container */
+/* form {
+  text-align: center;
+  margin-left: 20px;
+} */
+
+form.delete{
   text-align: center;
   margin-left: 20px;
 }
