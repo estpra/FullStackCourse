@@ -37,10 +37,9 @@ app.get("/", async (req, res) => {
   // const dateObj = convertStrToDate(dateStr)
   // console.log(`datePicker: ${req.body.datePicker}`);
   let itemsArr = await db.query(`select * from items where date_of_items = '${dateStr}'`)
-  console.log(itemsArr.rows);
+  // console.log(itemsArr.rows);
   //No need to get the raw data itself as the listItems attribute is an array of objects
   items = itemsArr.rows
-  console.log(dateStr);
   res.render("index.ejs", {
     listTitle: dateStr,
     listItems: items,

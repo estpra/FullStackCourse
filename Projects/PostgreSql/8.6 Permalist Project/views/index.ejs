@@ -1,4 +1,6 @@
 <%- include('partials/header.ejs'); -%>
+<!-- Made this div encapsulate the whole content of the main element (this is all in the main element, see the header.ejs) so the list would be one box and fix issue where edit was not working-->
+ <!-- Also, discovered that you cannot have a div opening tag within a form and have that div's closing tag outside the for element, that also seemed to be contributing to edit issue -->
 <div class="box">
   <form action="/add" method="post">
     <div id="heading">
@@ -6,13 +8,11 @@
           <input type="date" id="datePicker" name="datePicker" value="<%= listTitle %>" onchange="this.form.submit()">
       </div>
     </div>
-  <!-- <div class="box"> -->
       <div class="item">
         <input type="text" name="newItem" placeholder="New Item" autocomplete="off" autofocus="true" />
         <button class="add" type="submit" name="list" value="<%=listTitle %>">+</button>
       </div>
   </form>
-  <!-- <div class="box"> -->
   <% for(let item of listItems){%>
     <div class="item">
       <form action="/delete" method="post" class="delete">
