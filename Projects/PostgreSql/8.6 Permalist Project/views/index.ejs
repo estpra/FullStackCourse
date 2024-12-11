@@ -1,51 +1,61 @@
 <%- include('partials/header.ejs'); -%>
-<!-- Made this div encapsulate the whole content of the main element (this is all in the main element, see the header.ejs) so the list would be one box and fix issue where edit was not working-->
- <!-- Also, discovered that you cannot have a div opening tag within a form and have that div's closing tag outside the for element, that also seemed to be contributing to edit issue -->
-<div class="box">
-  <form action="/add" method="post">
-    <div id="heading">
-      <div class="s-container">
+  <!-- Made this div encapsulate the whole content of the main element (this is all in the main element, see the header.ejs) so the list would be one box and fix issue where edit was not working-->
+  <!-- Also, discovered that you cannot have a div opening tag within a form and have that div's closing tag outside the for element, that also seemed to be contributing to edit issue -->
+  <div class="box">
+    <form action="/add" method="post">
+      <div id="heading">
+        <div class="s-container">
           <input type="date" id="datePicker" name="datePicker" value="<%= listTitle %>" onchange="this.form.submit()">
+        </div>
       </div>
-    </div>
       <div class="item">
         <input type="text" name="newItem" placeholder="New Item" autocomplete="off" autofocus="true" />
         <button class="add" type="submit" name="list" value="<%=listTitle %>">+</button>
       </div>
-  </form>
-  <% for(let item of listItems){%>
-    <div class="item">
-      <form action="/delete" method="post" class="delete">
-        <input type="checkbox" onchange="this.form.submit()" name="deleteItemId" value="<%= item.id %>">
-      </form>
+    </form>
+    <% for(let item of listItems){%>
+      <div class="item">
+        <form action="/delete" method="post" class="delete">
+          <input type="checkbox" onchange="this.form.submit()" name="deletedItemId" value="<%= item.id %>">
+        </form>
 
-      <p id="title<%=item.id%>">
-        <%= item.title %>
-      </p>
+        <p id="title<%=item.id%>">
+          <%= item.title %>
+        </p>
 
-      <form class="edit" action="/edit" method="post">
-        <input type="hidden" name="updatedItemId" value="<%= item.id %>">
-        <input id="input<%=item.id%>" type="text" name="updatedItemTitle" value="<%= item.title %>" autocomplete="off" autofocus="true" hidden />
-        <button id="done<%=item.id%>" class="edit" type="submit" hidden><img class="icon"
-            src="/assets/icons/check-solid.svg" alt="tick image"></button>
-      </form>
-      <button id="edit<%=item.id%>" class="edit" onclick="handler('<%=item.id%>')"><img class="icon"
-          src="/assets/icons/pencil-solid.svg" alt="pencil image"></button>
-      <button id="delete<%=item.id%>" class="edit" onclick="handler('<%=item.id%>')"><img class="icon"
-          src="/assets/icons/icons8-trash.svg" alt="trash can image"></button>
-    </div>
-    <% } %>
+        <form class="edit" action="/edit" method="post">
+          <input type="hidden" name="updatedItemId" value="<%= item.id %>">
+          <input id="input<%=item.id%>" type="text" name="updatedItemTitle" value="<%= item.title %>" autocomplete="off" autofocus="true" hidden />
+          <button id="done<%=item.id%>" class="edit" type="submit" hidden><img class="icon"
+              src="/assets/icons/check-solid.svg" alt="tick image"></button>
+        </form>
+        <button id="edit<%=item.id%>" class="edit" onclick="handler('<%=item.id%>')"><img class="icon"
+            src="/assets/icons/pencil-solid.svg" alt="pencil image"></button>
+        <form action="/delete" method="post">
+          <input type="hidden" name="deletedItemId" value="<%= item.id %>">
+          <button id="delete<%=item.id%>" class="edit" onclick="this.form.submit()"><img class="icon"
+            src="/assets/icons/icons8-trash.svg" alt="trash can image"></button>
+        </form>
+        <!-- <button id="delete<#=item.id%>" class="edit" onclick="handler('<%#item.id%>')"><img class="icon"
+            src="/assets/icons/icons8-trash.svg" alt="trash can image"></button> -->
+      </div>
+      <% } %>
   </div>
 
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-      <script>
-        function handler(id) {
-          document.getElementById("title" + id).setAttribute("hidden", true)
-          document.getElementById("edit" + id).setAttribute("hidden", true)
-          document.getElementById("delete" + id).setAttribute("hidden", true)
-          document.getElementById("done" + id).removeAttribute("hidden")
-          document.getElementById("input" + id).removeAttribute("hidden")
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script>
+    function handler(id) {
+      // $('#title' + id).setAttribute("hidden", true)
+      // $('#edit' + id).setAttribute("hidden", true)
+      // $('#delete' + id).setAttribute("hidden", true)
+      // $('#done' + id).removeAttribute("hidden")
+      // $('#input' + id).removeAttribute("hidden")
 
-        }
-      </script>
-      <%- include('partials/footer.ejs'); -%>
+      $('#title' + id).attr("hidden", true)
+      $('#edit' + id).attr("hidden", true)
+      $('#delete' + id).attr("hidden", true)
+      $('#done' + id).removeAttr("hidden")
+      $('#input' + id).removeAttr("hidden")
+    }
+  </script>
+  <%- include('partials/footer.ejs'); -%>

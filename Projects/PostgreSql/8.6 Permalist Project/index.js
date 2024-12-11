@@ -21,20 +21,15 @@ let items = []
 let dateStr = ""
 
 app.get("/", async (req, res) => {
-  // let today = new Date();
-  // console.log(today);
   //added this if statement to be able to use dateStr as a global variable and be able to use res.redirect on the other endpoints
   if (dateStr == "") {
     let today = new Date();
     dateStr = today.toLocaleDateString();
-    //added these 2 lines of code to keep the format as yyyy-mm-dd due to issue I was having where when user wanted to see the items for a specific date, it would get the incorrect date, for ex, in my case, since I am on pacfic time, the toLocaleDateString() method would convert the date to one day less than the date I actually wanted
+    //added these 2 lines of code to keep the format as yyyy-mm-dd due to issue I was having where when user wanted to see the items for a specific date, it would get the incorrect date, for ex, in my case, since I am on pacfic time, the toLocaleDateString() method would convert the date to one day less than the date I actually wanted since the date object uses UTC time by default
     let timeZoneAccurateDate = new Date(dateStr)
     dateStr = timeZoneAccurateDate.toISOString().split('T')[0];
   }
-  // let dateStr = today.toISOString().split('T')[0]
-  // const dateStr = formatDate(today);
   console.log(`dateStr: ${dateStr}`);
-  // const dateObj = convertStrToDate(dateStr)
   // console.log(`datePicker: ${req.body.datePicker}`);
   let itemsArr = await db.query(`select * from items where date_of_items = '${dateStr}'`)
   // console.log(itemsArr.rows);
@@ -45,6 +40,7 @@ app.get("/", async (req, res) => {
     listItems: items,
   });
 });
+
 
 //Seems like this endpoint will have to handle both adding a new todo item and getting the todo items for a given date; have to do it like this since you can't nest forms within eachother, only the outer form is executed
 app.post("/add", async (req, res) => {
@@ -57,7 +53,6 @@ app.post("/add", async (req, res) => {
   //If you get in this if statement, you are just getting the todo items for the inputted date
   if (newItem == "") {
     console.log(`datePicker: ${req.body.datePicker}`);
-    console.log("On the right track");
     res.redirect("/")
   }
   else {
@@ -67,41 +62,35 @@ app.post("/add", async (req, res) => {
   }
 });
 
-app.post("/edit", (req, res) => {
-  console.log("Should be here");
+
+app.post("/edit", async (req, res) => {
   console.log(`updatedItemTitle: ${req.body.updatedItemTitle}`);
-  
+  let updatedTitle = req.body.updatedItemTitle
+  let id = parseInt(req.body.updatedItemId)
+  console.log(`id: ${id}`);
+  console.log(`Type of id: ${typeof id}`);
+  let currItemArr = await db.query(`select * from items where date_of_items = '${dateStr}' and id = ${id}`)
+  console.log(`currItemArr: ${JSON.stringify(currItemArr.rows)}`);
+  let currItem = JSON.stringify(currItemArr.rows[0].title)
+  console.log(`currItem: ${currItem}`);
+  //If you get into this if statement, there is no change, redirect to homepage
+  if(currItem === updatedTitle){
+    res.redirect("/")
+  }
+  //If you get into this if statement, then update the current item
+  else{
+    await db.query(`update items set title = '${updatedTitle}' where id = ${id}`)
+    res.redirect("/")
+  }
 });
 
-app.post("/delete", (req, res) => { 
 
+app.post("/delete", async (req, res) => {
+  let id = parseInt(req.body.deletedItemId)
+  await db.query(`delete from items where id = ${id}`)
+  res.redirect("/")
 });
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
-
-
-// function formatDate(date){
-//   // Get today's date
-//     console.log(new Date().toISOString());
-//     const today = new Date().toISOString().split('T')[0];
-
-//     return today;
-// }
-
-function formatDate(date) {
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-  const day = String(date.getDate()).padStart(2, '0');
-  const year = date.getFullYear();
-  return `${month}/${day}/${year}`;
-}
-
-// function convertStrToDate(dateString) {
-//   // Split the string into day, month, and year components
-//   const [day, month, year] = dateString.split('/').map(Number);
-//   // Adjust the month value (subtract 1 because JavaScript uses zero-based indexing)
-//   const adjustedMonth = month - 1;
-//   // Create a new Date object
-//   return new Date(year, adjustedMonth, day);
-// }
